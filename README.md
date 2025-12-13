@@ -1,4 +1,4 @@
-# Project-Final-Deliverable-INST377_Hannah_A.
+# Project-Final-Deliverable-INST377_Hannah_A
 
 Title of Project:
 
