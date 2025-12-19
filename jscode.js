@@ -12,48 +12,152 @@ function generateRandomNumbers(count, min, max){
 }
 
 async function musicpictures(){
-  const imageurls = []
+  const imageurls = [];
   const fetchsongimg = [];
 
-  while (imageurls.length < 10){
+  while (imageurls.length < 4){
     const songimgid = generateRandomNumbers(1, 111239, 112573)[0];
-  }
-    for (let index = 0; index < 10; index++){
+ 
+
       fetchsongimg.push(
-     fetch(`https://dog.ceo/api/breeds/image/random`)
+      fetch(`https://www.theaudiodb.com/api/v1/json/123/album.php?i=${songimgid}`)
     .then((resp) => resp.json())
         .then((resp) => {
-      const image = resp.message;
-      imageurls.push(image)
-      
-     })
-    );
-    } 
+
+        resp.album.forEach(album => {
+          if (album.strAlbumThumb && !imageurls.includes(album.strAlbumThumb) && imageurls.length < 4){
+            imageurls.push(album.strAlbumThumb);
+          }
+    
+     });
+  })
+  .catch(() => {})
+);
+
+ if (fetchsongimg.length >= 4) break;
+}
+
     await Promise.all(fetchsongimg);
   console.log(imageurls);
     const imagediv = document.getElementById('imagecontainer');      
 
-    imageurls.forEach((dogs) => {
-        const dogimage = document.createElement('img');
-        dogimage.src = dogs;
-        dogimage.style.width ="400px";
+  imageurls.forEach((songspic) => {
+        const albumimage = document.createElement('img');
+        albumimage.src = songspic;
 
-        imagediv.appendChild(dogimage); 
-
+        imagediv.appendChild(albumimage); 
+  });
         
-      })
+
     simpleslider.getSlider({
       container: document.getElementById('imagecontainer'),
       transitionTime:1,
       delay: 3.5
     });
+  }
 
+
+function clearinfo() {
+  const tablebody = document.getElementById('tabledata');
+  tablebody.innerHTML = ``;
+  document.getElementById("Album").innerText = '';
+  document.getElementById("Year").innerText = '';
+  document.getElementById('artistbio').innerText = '';
+}
+
+
+
+function getmusicinfo(){    
+  clearinfo();      
+
+  const musicidinfo = document.getElementById('searchinput').value.trim();
+  if (!musicidinfo) return;
+  console.log(musicidinfo);
+  fetch(`https://www.theaudiodb.com/api/v1/json/123/search.php?s=${musicidinfo}`)
+  .then((resp) => resp.json())
+    .then((resp)=> {
+
+      musicinformation = resp.artists[0].strBiographyEN;
+
+      tablemusicinfo = document.getElementById('artistbio');
+      tablemusicinfo.innerHTML = musicinformation;
+    })
+
+
+
+
+
+}
+
+
+
+function getalbums(){  
+  const tablebody = document.getElementById('tabledata');
+
+  clearinfo();
+  const musicidinfo = document.getElementById('searchinput').value.trim();
+  if (!musicidinfo) return;
+  console.log(musicidinfo);
+
+
+  fetch(`https://www.theaudiodb.com/api/v1/json/123/searchalbum.php?s=${musicidinfo}`)
+  .then((resp) => resp.json())
+    .then((resp)=> {
+      console.log(resp.album);
+      albuminformation = `${resp.album[0].intYearReleased}., ${resp.album[0].strAlbum}`
+      console.log(albuminformation);
+
+      albumlist = resp.album;
+      
+      albumlist.forEach((albums) => {
+        if (!albums.strAlbum || !albums.intYearReleased){
+            console.log('skip undefined values');
+            return;
+        }
+        const row = document.createElement('tr');
+        const albumcell = document.createElement('td');
+        const yearcell = document.createElement('td');
+
+        albumcell.innerText = albums.strAlbum;
+        row.append(albumcell);
+
+        yearcell.innerText = albums.intYearReleased;
+        row.appendChild(yearcell);
+
+
+        tablebody.appendChild(row);
+
+      });
+      
+      document.getElementById("Album").innerText = `${musicidinfo} album(s)`;
+      document.getElementById("Year").innerText = `Year`;
+
+    })
+
+
+}
+
+
+
+
+function songsearch(){
+  document.getElementById('songsearchresults').innerHTML='';
+  const artistq = document.getElementById('searchartist').value.trim();
+  const songq = document.getElementById('searchsong').value.trim();
+
+    fetch(`https://www.theaudiodb.com/api/v1/json/123/searchtrack.php?s=${artistq}&t=${songq}`)
+    .then((resp) => resp.json())
+    .then((resp)=> {
+      console.log(resp.track[0]);
+
+      document.getElementById('songsearchresults').innerHTML=`Song: ${resp.track[0].strTrack}, Artist: ${resp.track[0].strArtist}
+      , Album: ${resp.track[0].strAlbum}`;
+
+    })
 }
 
 window.onload = function(){
     musicpictures();
-    musicnumbercount();
-
 
 
 }

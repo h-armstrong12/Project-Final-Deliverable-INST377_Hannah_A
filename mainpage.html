@@ -1,0 +1,61 @@
+<html>
+    <head>
+        <title>INST377 Final Deliverable - About Page</title>
+        <link rel="stylesheet" href="stylespage.css">
+    </head>
+
+    <body>
+    <h1>Main (Search/Save) Page</h1>
+        <ul class="navbar">
+            <li><a href="homepage.html">Home</a></li>
+            <li><a href="mainpage.html">Search/Save</a></li>
+            <li><a href="aboutpage.html">About</a></li>
+
+
+        </ul>
+    
+        <h1>hello there :3</h1>
+        <form style="background-color:rgb(195, 228, 255); padding:20px; margin:40px;">
+            <p><i><b>Search for Artists bio's and albums here!</b></i></p>
+            <label for="search">Search: </label>
+            <input id="searchinput" type="text" style="width:400px; margin:10px;" name="searchinput" required>
+            <br>
+            
+            <button type = "button" id="artistinfo" onclick="getmusicinfo(); return false;">Artist Info</button>
+            <button type = "button" id="artistsong" onclick="getalbums(); return false;">Albums</button>
+            
+        </form>
+            <div style="margin: 30px; padding:20px; background-color: rgb(195, 228, 255);">
+                <div id="artistbio"></div>
+                <table style="width: 80%; margin-left: auto; margin-right: auto;">
+            <thead>
+            <tr>
+                <th style="text-align:center" id="Album"></th>
+                <th style="text-align:center" id="Year"></th>
+            </tr>
+            </thead>
+            <tbody id="tabledata">
+            </tbody>
+
+        </table>
+            </div>
+
+            <div>
+                <form style="background-color:rgb(195, 228, 255); padding:20px; margin:40px;">
+                <p><i><b>Search for Songs here!</b></i></p>
+                <label for="search">Artist: </label>
+                <input id="searchartist" type="text" style="width:400px; margin:10px;" name="searchartist" required><br>
+                 <label for="search">Song: </label>
+                <input id="searchsong" type="text" style="width:400px; margin:10px;" name="searchsong" required>
+
+                <br>
+                <button type = "button" id="artistinfo" onclick="songsearch(); return false;">Search for Songs</button>  
+            <br>
+                </form>
+            </div>
+            <div id = "songsearchresults" style="background-color:rgb(195, 228, 255); padding:20px; margin:40px;">
+            </div>
+    <script defer src="jscode.js"></script>
+    </body>
+    
+</html>
