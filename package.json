@@ -1,0 +1,28 @@
+{
+  "name": "project-final-deliverable-inst377_hannah_a",
+  "version": "1.0.0",
+  "description": "Title of Project:",
+  "homepage": "https://github.com/h-armstrong12/Project-Final-Deliverable-INST377_Hannah_A#readme",
+  "bugs": {
+    "url": "https://github.com/h-armstrong12/Project-Final-Deliverable-INST377_Hannah_A/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/h-armstrong12/Project-Final-Deliverable-INST377_Hannah_A.git"
+  },
+  "license": "ISC",
+  "author": "Hannah Armstrong",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon -e '*'",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.89.0",
+    "body-parser": "^2.2.1",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "nodemon": "^3.1.11"
+  }
+}
