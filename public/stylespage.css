@@ -61,6 +61,8 @@ a:hover {
 .twodiv {
   display: flex;
   column-gap: 20px;
+  padding-left: 10%;
+  padding-right: 10%;
 }
 
 .tablestyle table{
@@ -76,3 +78,15 @@ a:hover {
 .tablestyle th{
   border: 2px solid black;
 }
+
+.audiotextbox{
+    align-items: center;
+    color: white;
+    border-color: black;
+    background-color: rgb(195, 228, 255);
+    border: 10px;
+    width: 50%;
+    margin: 25px auto;
+    padding: 30px;
+}
+

@@ -145,6 +145,10 @@ function songsearch(){
   const artistq = document.getElementById('searchartist').value.trim();
   const songq = document.getElementById('searchsong').value.trim();
 
+  if (!artistq || !songq){
+    alert("Make sure to specify the artist and song!");
+  }
+
     fetch(`https://www.theaudiodb.com/api/v1/json/123/searchtrack.php?s=${artistq}&t=${songq}`)
     .then((resp) => resp.json())
     .then((resp)=> {
@@ -156,3 +160,27 @@ function songsearch(){
     })
 }
 
+
+function trending(){
+  fetch('https://www.theaudiodb.com/api/v1/json/123/trending.php?country=us&type=itunes&format=singles')
+  .then((resp) => resp.json())
+  .then((resp) => {
+    console.log(resp.trending)
+    
+    trendingsongs = resp.trending
+
+      document.getElementById('trending1').innerHTML = `"${trendingsongs[0].strTrack}" by ${trendingsongs[0].strArtist}`
+      document.getElementById('trending2').innerHTML = `"${trendingsongs[1].strTrack}" by ${trendingsongs[1].strArtist}`
+      document.getElementById('trending3').innerHTML = `"${trendingsongs[2].strTrack}" by ${trendingsongs[2].strArtist}`
+
+
+
+  })
+}
+
+window.onload = function(){
+    musicpictures();
+    trending()
+
+
+}

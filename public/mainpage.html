@@ -39,7 +39,7 @@
         <form style="background-color:rgb(195, 228, 255); padding:20px; margin:40px;">
             <p><i><b>Search for Artists bio's and albums here!</b></i></p>
             <label for="search">Search: </label>
-            <input id="searchinput" type="text" style="width:400px; margin:10px;" name="searchinput" required>
+            <input id="searchinput" type="text" style="margin:10px;" name="searchinput" required>
             <br>
             
             <button type = "button" id="artistinfo" onclick="getmusicinfo(); return false;">Artist Info</button>
@@ -65,18 +65,98 @@
                 <form style="background-color:rgb(195, 228, 255); padding:20px; margin:40px;">
                 <p><i><b>Search for Songs here!</b></i></p>
                 <label for="search">Artist: </label>
-                <input id="searchartist" type="text" style="width:400px; margin:10px;" name="searchartist" required><br>
+                <input id="searchartist" type="text" style="margin:10px;" name="searchartist" required><br>
                  <label for="search">Song: </label>
-                <input id="searchsong" type="text" style="width:400px; margin:10px;" name="searchsong" required>
+                <input id="searchsong" type="text" style="margin:10px;" name="searchsong" required>
 
                 <br>
-                <button type = "button" id="artistinfo" onclick="songsearch(); return false;">Search for Songs</button>  
+                <button type = "button" id="songinfo" onclick="songsearch(); return false;">Search for Songs</button>  
             <br>
                 </form>
             </div>
             <div id = "songsearchresults" style="background-color:rgb(195, 228, 255); padding:20px; margin:40px;">
             </div>
+
+    <div class = "audiotextbox">
+    <h2>In this webpage there are options to Navigate using Audio!</h2>
+    <p>Ensure your mic is enabled to be able to use this feature</p>
+        <ul>
+            <li>Say Hello Back to you!</li>
+                <ul><li>Say: <b>Hello</b></li></ul>
+            <li>Search Information about Artists</li>
+                <ul><li>Say: <b>Search up info about &lt;artist&gt;</b></li></ul>
+            <li>Look up Albums!</li>
+                <ul><li>Say: <b>Look up albums from &lt;artist&gt;</b></li></ul>
+            <li>Look up Albums!</li>
+                <ul><li>Say: <b>Search for &lt;songs&gt; by &lt;artist&gt;</b></li></ul>
+            
+        </ul>
+        <div class="listenbutton">
+        <button id="onbutton">Turn On Listening</button>
+        <button id="offbutton">Turn Off Listening</button>
+        </div>
+</div>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.6.1/annyang.min.js"></script>
+<script>
+    const truebutton = document.getElementById('onbutton')
+    const endbutton = document.getElementById('offbutton')
+    truebutton.addEventListener('click', function(){
+        if (annyang) {
+
+    const artistsearch = function(artist){
+        document.getElementById('searchinput').value = artist.trim();
+        getmusicinfo();
+    }
+
+    const albumsearch = function(artist){
+        document.getElementById('searchinput').value = artist.trim();
+        getalbums();
+    }
+
+    const songsearch = function(songs, artist){
+        //document.getElementById('searchsong').value = songs.trim();
+        //document.getElementById('searchartist').value = artist.trim();
+        document.getElementById('songsearchresults').innerHTML='';
+            document.getElementById('searchsong').value = songs.trim();
+            document.getElementById('searchartist').value = artist.trim();
+        if (!artist || !songs){
+            alert("Make sure to specify the artist and song!");
+        }
+        fetch(`https://www.theaudiodb.com/api/v1/json/123/searchtrack.php?s=${artist}&t=${songs}`)
+        .then((resp) => resp.json())
+        .then((resp)=> {
+        console.log(resp.track[0]);
+
+        document.getElementById('songsearchresults').innerHTML=`Song: ${resp.track[0].strTrack}, Artist: ${resp.track[0].strArtist}
+        , Album: ${resp.track[0].strAlbum}`;
+
+        })
+    }
+  
+  
+  const commands = {
+    'hello': () => { alert('Hello world!'); },
+
+    'Search up info about *artist': artistsearch,
+
+    'Look up albums from *artist': albumsearch,
+
+    'Search for *songs by *artist': songsearch,
+ };
+
+    annyang.addCommands(commands);
+
+    annyang.start();
+  
+    endbutton.addEventListener('click', function(){
+        annyang.abort();
+    });
+  }
+});
+</script>
     <script defer src="jscode.js"></script>
     </body>
     
 </html>
+
