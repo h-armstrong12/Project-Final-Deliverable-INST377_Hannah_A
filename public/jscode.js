@@ -163,7 +163,7 @@ async function loaduserdata(){
   .then((resp) => {
       console.log(resp);
 
-      const table = document.createElement('table');
+      const table = document.getElementById('databasetable');
 
       const tableRow = document.createElement('tr');
       const tableHeadingusername = document.createElement('th');
@@ -211,7 +211,5 @@ async function loaduserdata(){
 
 window.onload = function(){
     musicpictures();
-    loaduserdata();
-
 
 }
