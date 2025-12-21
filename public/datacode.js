@@ -44,8 +44,8 @@ async function loaduserdata(){
     
     });
 
-
-      document.body.appendChild(table);
+    const databaseinfotable = document.getElementById('databasetable');
+    databaseinfotable.appendChild(table);
 
 
   });
