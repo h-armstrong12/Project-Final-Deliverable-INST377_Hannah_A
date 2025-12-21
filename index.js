@@ -9,13 +9,18 @@ const port = 3000;
 
 dotenv.config();
 
-app.use(bodyParser.json())
+app.use(bodyParser.json());
+app.use(express.static(__dirname + '/public'));
 
 //Initialize Supabase Client
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_KEY;
 
 const supabase = supabaseClient.createClient(supabaseUrl, supabaseKey);
+
+app.get('/', (req, res) => { 
+    res.sendFile('public/homepage.html', { root: __dirname });
+});
 
 app.get('/usersongs', async (req, res) => {
     console.log('Attempting to GET all users');
