@@ -2,7 +2,7 @@
     <head>
         <title>INST377 Final Deliverable - About Page</title>
         <link rel="stylesheet" href="stylespage.css">
-       
+       <script src="datacode.js" defer></script>
 
     </head>
 
@@ -14,27 +14,27 @@
             <li><a href="mainpage.html">Search/Save</a></li>
             <li><a href="aboutpage.html">About</a></li>
 
-
         </ul>
-        <h1>Add your favorite artist and song</h1>
-        <label for="name">Name: </label>
-        <input type="text" id="inputname">
-        <br>
-        <label for="favartist">Favorite Artist: </label>
-        <input type="text" id="favartist">
-        <br>
-        <label for="favsong">Favorite Song</label>
-        <input type="text" id="favsong">
-        <br>
-        <br>
-        <input type="submit" name="Add user">
-    
-        <script src="datacode.js"></script>
+        <h2>Add your favorite artist and song</h2>
+        <div class="twodiv">
         
-        <div id="databasetable">
+        <form onsubmit="createuser(); return false;">
+        <label for="name">Name: </label>
+        <input type="text" id="inputname" required>
+        <br>
+        <label for="artist">Favorite Artist: </label>
+        <input type="text" id="favartist" required>
+        <br>
+        <label for="song">Favorite Song</label>
+        <input type="text" id="favsong" required>
+        <br>
+        <br>
+        <input type="submit" name="Add-user">    
+        </form>
 
+        <div id="databasetable" class="tablestyle">
         </div>
-
+        </div>
         <h1>hello there :3</h1>
         <form style="background-color:rgb(195, 228, 255); padding:20px; margin:40px;">
             <p><i><b>Search for Artists bio's and albums here!</b></i></p>

@@ -1,3 +1,19 @@
+async function createuser(){
+    await fetch('/usersong', {
+        method: 'POST',
+        body: JSON.stringify({
+            user_name: `${document.getElementById('inputname').value}`,
+            favorite_artist: `${document.getElementById('favartist').value}`,
+            favorite_song: `${document.getElementById('favsong').value}`
+        }),
+        headers: {
+            'Content-type': 'application/json'
+        }
+    }).then((result) => result.json());
+
+    await loaduserdata()
+}
+
 async function loaduserdata(){
   await fetch('/usersongs')
   .then((resp) => resp.json())
@@ -39,12 +55,10 @@ async function loaduserdata(){
 
       table.appendChild(usertablerow);
 
-
-
-    
     });
 
     const databaseinfotable = document.getElementById('databasetable');
+    databaseinfotable.innerHTML = '';
     databaseinfotable.appendChild(table);
 
 
