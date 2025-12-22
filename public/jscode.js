@@ -71,7 +71,11 @@ function getmusicinfo(){
   clearinfo();      
 
   const musicidinfo = document.getElementById('searchinput').value.trim();
-  if (!musicidinfo) return;
+  if (!musicidinfo || musicidinfo==""){ 
+    alert('Please specify what Artist you would like to search for.')
+      tablemusicinfo.innerHTML = "";
+      return;
+  }
   console.log(musicidinfo);
   fetch(`https://www.theaudiodb.com/api/v1/json/123/search.php?s=${musicidinfo}`)
   .then((resp) => resp.json())
@@ -96,7 +100,9 @@ function getalbums(){
 
   clearinfo();
   const musicidinfo = document.getElementById('searchinput').value.trim();
-  if (!musicidinfo) return;
+  if (!musicidinfo){ 
+    alert('Please specify what Artist you would like to search for.')
+  }
   console.log(musicidinfo);
 
 
