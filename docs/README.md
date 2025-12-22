@@ -48,6 +48,8 @@ In terms of future development, it would be nicer to implement some more user fr
 
 
 Deployed Link to vercel:
+https://project-final-deliverable-inst-377.vercel.app/
+
 
 
 
